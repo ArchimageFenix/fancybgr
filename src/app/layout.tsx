@@ -29,15 +29,36 @@ const themeScript = `
       const savedTheme = localStorage.getItem("fancybgr-theme");
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-      const theme =
-        savedTheme === "dark" || savedTheme === "light"
-          ? savedTheme
-          : prefersDark
-            ? "dark"
-            : "light";
+      let theme;
 
-      document.documentElement.classList.toggle("dark", theme === "dark");
-      document.documentElement.style.colorScheme = theme;
+      if (
+        savedTheme === "light" ||
+        savedTheme === "dark" ||
+        savedTheme === "fancy"
+      ) {
+        theme = savedTheme;
+      } else {
+        theme = prefersDark ? "dark" : "light";
+      }
+
+      const isDark =
+        theme === "dark" ||
+        theme === "fancy";
+
+      document.documentElement.classList.toggle(
+        "dark",
+        isDark
+      );
+
+      document.documentElement.classList.toggle(
+        "fancy",
+        theme === "fancy"
+      );
+
+      document.documentElement.style.colorScheme =
+        theme === "light"
+          ? "light"
+          : "dark";
     } catch (_) {}
   })();
 `;

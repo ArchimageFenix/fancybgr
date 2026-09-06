@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant fancy (&:where(.fancy, .fancy *));
 
 :root {
   --background: #ffffff;
@@ -11,6 +12,9 @@
   --foreground-muted: #6b7280;
 
   --border: rgba(0, 0, 0, 0.08);
+
+  --accent: #2563eb;
+  --accent-secondary: #6366f1;
 
   --font-body: var(--font-manrope);
   --font-display: var(--font-sora);
@@ -25,6 +29,30 @@
   --foreground-muted: #a3a3a3;
 
   --border: rgba(255, 255, 255, 0.08);
+
+  --accent: #60a5fa;
+  --accent-secondary: #818cf8;
+}
+
+/*
+ * Fancy theme
+ *
+ * It inherits Dark Mode behavior and only changes the visual identity.
+ * Colors are inspired by the FancyBGR logo:
+ * deep blue, cyan, indigo and violet.
+ */
+.fancy {
+  --background: #07111f;
+  --surface: #0d1a2b;
+  --surface-soft: #10233a;
+
+  --foreground: #f5f9ff;
+  --foreground-muted: #a9bdd2;
+
+  --border: rgba(92, 200, 255, 0.16);
+
+  --accent: #22d3ee;
+  --accent-secondary: #6366f1;
 }
 
 * {
@@ -38,12 +66,43 @@ html {
 
 body {
   margin: 0;
+  min-height: 100vh;
+
   background: var(--background);
   color: var(--foreground);
+
   font-family: var(--font-body), Arial, Helvetica, sans-serif;
+
   transition:
     background-color 200ms ease,
     color 200ms ease;
+}
+
+/*
+ * Fancy background
+ *
+ * Very subtle gradients so the interface does not become neon-heavy.
+ */
+.fancy body {
+  background:
+    radial-gradient(
+      circle at 15% 0%,
+      rgba(34, 211, 238, 0.10),
+      transparent 32rem
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(99, 102, 241, 0.12),
+      transparent 34rem
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(168, 85, 247, 0.07),
+      transparent 36rem
+    ),
+    var(--background);
+
+  background-attachment: fixed;
 }
 
 h1,
@@ -64,4 +123,41 @@ select {
 
 ::selection {
   background: rgba(99, 102, 241, 0.22);
+}
+
+.fancy ::selection {
+  background: rgba(34, 211, 238, 0.25);
+}
+
+/*
+ * Fancy theme toggle
+ */
+.fancy .fancy-theme-button {
+  border-color: rgba(34, 211, 238, 0.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(34, 211, 238, 0.14),
+      rgba(99, 102, 241, 0.16)
+    );
+
+  color: #67e8f9;
+
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.03),
+    0 4px 18px rgba(37, 99, 235, 0.10);
+}
+
+.fancy .fancy-theme-button:hover {
+  border-color: rgba(34, 211, 238, 0.40);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(34, 211, 238, 0.20),
+      rgba(99, 102, 241, 0.22)
+    );
+
+  color: #ffffff;
 }

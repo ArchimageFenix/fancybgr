@@ -10,6 +10,8 @@ export default function Header() {
         transition-colors
         dark:border-white/5
         dark:bg-[#0c0d0f]/90
+        fancy:border-cyan-300/10
+        fancy:bg-[#07111f]/85
       "
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
@@ -21,6 +23,12 @@ export default function Header() {
             text-neutral-950
             transition-colors
             dark:text-white
+            fancy:bg-gradient-to-r
+            fancy:from-cyan-300
+            fancy:via-blue-400
+            fancy:to-violet-400
+            fancy:bg-clip-text
+            fancy:text-transparent
           "
         >
           FancyBGR
@@ -33,6 +41,7 @@ export default function Header() {
               text-sm text-neutral-600
               md:flex
               dark:text-neutral-400
+              fancy:text-slate-300
             "
           >
             <a
@@ -41,6 +50,7 @@ export default function Header() {
                 transition-colors
                 hover:text-neutral-950
                 dark:hover:text-white
+                fancy:hover:text-cyan-300
               "
             >
               How it works
@@ -52,6 +62,7 @@ export default function Header() {
                 transition-colors
                 hover:text-neutral-950
                 dark:hover:text-white
+                fancy:hover:text-cyan-300
               "
             >
               Features
@@ -63,6 +74,7 @@ export default function Header() {
                 transition-colors
                 hover:text-neutral-950
                 dark:hover:text-white
+                fancy:hover:text-cyan-300
               "
             >
               FAQ
