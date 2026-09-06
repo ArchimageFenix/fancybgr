@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FancyBGR
+
+**Private, local AI background removal directly in your browser.**
+
+FancyBGR is a web application for removing image backgrounds using AI without uploading your images to a remote processing server.
+
+Image processing runs locally in the browser using ONNX Runtime Web and WebAssembly.
+
+## Features
+
+- AI-powered background removal
+- Local browser-based image processing
+- Images are not uploaded for background removal
+- Full-resolution PNG output
+- Transparent background output
+- Sequential batch processing
+- Local AI model caching
+- Offline processing after required assets are cached
+- Light and dark themes
+- Responsive interface for desktop and mobile
+
+## Privacy
+
+FancyBGR is designed around local processing.
+
+Your images are processed directly on your device. The application may download required AI model and runtime assets, but image background removal itself is performed locally in the browser.
+
+No account is required to process images.
+
+## Technology
+
+FancyBGR is built with:
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- ONNX Runtime Web
+- WebAssembly
+- IMG.LY Background Removal
+
+## How It Works
+
+```text
+Image
+  ↓
+Browser image preparation
+  ↓
+Local AI inference
+  ↓
+Background removal
+  ↓
+Transparent PNG
+```
+
+The AI model and required runtime assets are cached by the browser to reduce repeated downloads.
 
 ## Getting Started
 
-First, run the development server:
+Clone the repository:
+
+```bash
+git clone https://github.com/ArchimageFenix/fancybgr.git
+```
+
+Enter the project directory:
+
+```bash
+cd fancybgr
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Production Build
 
-## Learn More
+Create an optimized production build:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run the production server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm start
+```
 
-## Deploy on Vercel
+## Requirements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For development:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Node.js
+- npm
+- A modern web browser with WebAssembly support
+
+## Project Status
+
+FancyBGR is currently under active development.
+
+The core local background-removal pipeline is functional and is being tested across desktop and mobile browsers.
+
+## Repository
+
+GitHub:
+
+https://github.com/ArchimageFenix/fancybgr
+
+## License
+
+A project license has not yet been selected.
