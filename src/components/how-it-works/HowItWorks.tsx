@@ -1,7 +1,7 @@
 const steps = [
   {
     number: "01",
-    title: "Upload your images",
+    title: "Drag your Image to the Drop area",
     description:
       "Select one or multiple images from your device, or simply drag them into FancyBGR.",
   },
