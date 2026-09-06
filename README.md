@@ -1,6 +1,13 @@
-# FancyBGR
 
-**Private, local AI background removal directly in your browser.**
+<p align="center">
+  <img src="./public/branding/fancybgr-logo.png" alt="FancyBGR" width="500">
+</p>
+
+<p align="center">
+  <strong>Private, local AI background removal directly in your browser.</strong>
+</p>
+
+
 
 FancyBGR is a web application for removing image backgrounds using AI without uploading your images to a remote processing server.
 

@@ -14,19 +14,19 @@ export default function Home() {
       <main>
         <section className="px-6 pb-24 pt-20">
           <div className="mx-auto flex max-w-7xl flex-col items-center text-center">
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-neutral-500">
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-neutral-500 transition-colors dark:text-neutral-400">
               AI background removal
             </p>
 
-            <h1 className="mt-5 text-5xl font-semibold tracking-tight text-neutral-950 md:text-6xl">
+            <h1 className="mt-5 text-5xl font-semibold tracking-tight text-neutral-950 transition-colors md:text-6xl dark:text-white">
               Remove image backgrounds
               <br />
               directly in your browser.
             </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-neutral-600">
-              Remove backgrounds from your images locally with AI.
-              Your images never leave your device.
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-neutral-600 transition-colors dark:text-neutral-400">
+              Remove backgrounds from your images locally with AI. Your images
+              never leave your device.
             </p>
 
             <div className="mt-12 w-full">
@@ -42,6 +42,7 @@ export default function Home() {
         <UseCases />
 
         <Features />
+
         <FAQ />
       </main>
     </>
