@@ -7,14 +7,70 @@ interface ImageCardProps {
   onDownload: (image: ImageItem) => void;
 }
 
+function HourglassIcon({
+  animated = false,
+}: {
+  animated?: boolean;
+}) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      className={`
+        h-5 w-5
+        shrink-0
+        ${animated ? "animate-spin [animation-duration:1800ms]" : ""}
+      `}
+    >
+      <path
+        d="M7 3h10M7 21h10"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="
+          M8 4
+          C8 8 9.5 9.5 12 12
+          C9.5 14.5 8 16 8 20
+
+          M16 4
+          C16 8 14.5 9.5 12 12
+          C14.5 14.5 16 16 16 20
+        "
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      <path
+        d="M9.5 6.5h5L12 10z"
+        fill="currentColor"
+        opacity="0.55"
+      />
+
+      <path
+        d="M9.5 18h5L12 14.5z"
+        fill="currentColor"
+        opacity="0.85"
+      />
+    </svg>
+  );
+}
+
 export default function ImageCard({
   image,
   isProcessing,
   onRemove,
   onDownload,
 }: ImageCardProps) {
-  const progress = image.progress ?? 0;
-  const stage = image.progressStage ?? "Waiting";
+  const stage =
+    image.status === "processing"
+    ? "Processing"
+    : "Waiting";
 
   return (
     <div
@@ -152,114 +208,80 @@ export default function ImageCard({
         </p>
 
         {image.status === "selected" && (
-          <p
+          <div
             className="
               mt-3
-              text-xs
+              flex items-center
+              gap-2
               text-neutral-400
 
               dark:text-neutral-500
               fancy:text-slate-500
             "
           >
-            Waiting
-          </p>
-        )}
+            <HourglassIcon />
 
-        {image.status === "processing" && (
-          <div className="mt-3">
-            <div className="mb-1.5 flex items-center justify-between gap-2">
-              <span
-                className="
-                  truncate
-                  text-xs font-medium
-                  text-neutral-600
-
-                  dark:text-neutral-400
-                  fancy:text-slate-400
-                "
-              >
-                {stage}
-              </span>
-
-              <span
-                className="
-                  shrink-0
-                  text-xs font-semibold
-                  tabular-nums
-                  text-neutral-900
-
-                  dark:text-white
-                  fancy:text-cyan-300
-                "
-              >
-                {progress}%
-              </span>
-            </div>
-
-            <div
-              className="
-                h-1.5
-                overflow-hidden
-                rounded-full
-                bg-neutral-200
-
-                dark:bg-white/10
-                fancy:bg-cyan-950/40
-              "
-            >
-              <div
-                className="
-                  h-full
-                  rounded-full
-                  bg-neutral-900
-                  transition-[width]
-                  duration-300
-                  ease-out
-
-                  dark:bg-white
-                  fancy:bg-gradient-to-r
-                  fancy:from-cyan-400
-                  fancy:via-blue-500
-                  fancy:to-violet-500
-                "
-                style={{
-                  width: `${progress}%`,
-                }}
-              />
-            </div>
+            <span className="text-xs font-medium">
+              Waiting
+            </span>
           </div>
         )}
 
-        {image.status === "completed" && image.resultUrl && (
-          <button
-            type="button"
-            onClick={() => onDownload(image)}
+        {image.status === "processing" && (
+          <div
             className="
               mt-3
-              w-full
-              rounded-full
-              bg-blue-600
-              px-3 py-2
-              text-xs font-medium
-              text-white
-              transition
+              flex items-center
+              gap-2
+              text-neutral-700
 
-              hover:bg-blue-700
-
-              fancy:border
-              fancy:border-cyan-200/10
-              fancy:bg-gradient-to-r
-              fancy:from-cyan-400
-              fancy:via-blue-500
-              fancy:to-violet-500
-              fancy:shadow-[0_8px_24px_rgba(59,130,246,0.20)]
-              fancy:hover:brightness-110
+              dark:text-neutral-300
+              fancy:text-cyan-300
             "
           >
-            Download Image
-          </button>
+            <HourglassIcon animated />
+
+            <span
+              className="
+                truncate
+                text-xs font-medium
+              "
+            >
+              {stage}
+            </span>
+          </div>
         )}
+
+        {image.status === "completed" &&
+          image.resultUrl && (
+            <button
+              type="button"
+              onClick={() => onDownload(image)}
+              className="
+                mt-3
+                w-full
+                rounded-full
+                bg-blue-600
+                px-3 py-2
+                text-xs font-medium
+                text-white
+                transition
+
+                hover:bg-blue-700
+
+                fancy:border
+                fancy:border-cyan-200/10
+                fancy:bg-gradient-to-r
+                fancy:from-cyan-400
+                fancy:via-blue-500
+                fancy:to-violet-500
+                fancy:shadow-[0_8px_24px_rgba(59,130,246,0.20)]
+                fancy:hover:brightness-110
+              "
+            >
+              Download Image
+            </button>
+          )}
       </div>
     </div>
   );

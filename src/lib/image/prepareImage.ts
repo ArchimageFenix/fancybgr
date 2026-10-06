@@ -33,6 +33,11 @@ function canvasToPng(
 
     canvas.toBlob(
       (blob) => {
+        // Release the large pixel buffer held by
+        // this temporary canvas before continuing.
+        canvas.width = 1;
+        canvas.height = 1;
+
         if (!blob) {
           reject(
             new Error(

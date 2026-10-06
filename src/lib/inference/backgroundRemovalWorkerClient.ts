@@ -2,6 +2,8 @@ import type {
   ProcessingProgressHandler,
 } from "@/lib/inference/removeBackground";
 
+let workerRequestCounter = 0;
+
 interface ProgressMessage {
   type: "progress";
   id: string;
@@ -43,8 +45,7 @@ export function runBackgroundRemovalWorker(
       );
 
       const id =
-        crypto.randomUUID();
-
+  `background-removal-${++workerRequestCounter}`;
       const cleanup = () => {
         worker.terminate();
       };

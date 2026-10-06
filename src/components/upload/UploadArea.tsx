@@ -6,6 +6,14 @@ import type { ImageItem } from "@/types/image";
 import { processImageQueue } from "@/lib/processing/processQueue";
 import { processImage } from "@/lib/processing/processImage";
 import ImageCard from "@/components/upload/ImageCard";
+import {
+  releaseImageResources,
+} from "@/lib/image/releaseImageResources";
+
+import {
+  clearImageBatch,
+} from "@/lib/image/clearImageBatch";
+
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024;
 
@@ -98,25 +106,40 @@ export default function UploadArea() {
     event.target.value = "";
   };
 
-  const removeImage = (id: string) => {
-    if (isProcessing) {
-      return;
+  const removeImage = (
+  id: string,
+) => {
+  if (isProcessing) {
+    return;
+  }
+
+  setImages((current) => {
+    const image = current.find(
+      (item) => item.id === id,
+    );
+
+    if (image) {
+      releaseImageResources(image);
     }
 
-    setImages((current) => {
-      const image = current.find((item) => item.id === id);
+    return current.filter(
+      (item) => item.id !== id,
+    );
+  });
+};
 
-      if (image) {
-        URL.revokeObjectURL(image.previewUrl);
 
-        if (image.resultUrl) {
-          URL.revokeObjectURL(image.resultUrl);
-        }
-      }
 
-      return current.filter((item) => item.id !== id);
-    });
-  };
+const clearImages = () => {
+  if (isProcessing) {
+    return;
+  }
+
+  clearImageBatch(images);
+
+  setImages([]);
+  setErrorMessage(null);
+};
 
   const handleProcessImages = async () => {
     if (images.length === 0 || isProcessing) {
@@ -176,6 +199,12 @@ export default function UploadArea() {
         onChange={handleFileChange}
         className="hidden"
       />
+
+      {errorMessage && (
+  <div className="mb-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+    {errorMessage}
+  </div>
+)}
 
       {images.length === 0 ? (
         <div
@@ -412,6 +441,42 @@ export default function UploadArea() {
                 Add more
               </button>
 
+
+              <button
+                type="button"
+                onClick={clearImages}
+                disabled={isProcessing}
+                className="
+                  rounded-full
+                  border border-neutral-200
+                  px-5 py-2.5
+                  text-sm font-medium
+                  text-neutral-700
+                  transition
+
+                  hover:border-neutral-300
+                  hover:bg-neutral-50
+
+                  disabled:cursor-not-allowed
+                  disabled:opacity-50
+
+                  dark:border-white/10
+                  dark:text-neutral-300
+                  dark:hover:border-white/20
+                  dark:hover:bg-white/[0.05]
+
+                  fancy:border-cyan-300/20
+                  fancy:text-slate-200
+                  fancy:hover:border-cyan-300/40
+                  fancy:hover:bg-cyan-300/[0.05]
+                  fancy:hover:text-cyan-200
+                "
+              >
+                Clear
+              </button>
+
+
+
               <button
                 type="button"
                 onClick={handleProcessImages}
@@ -449,30 +514,7 @@ export default function UploadArea() {
             </div>
           </div>
 
-          {errorMessage && (
-            <div
-              className="
-                mb-5
-                rounded-2xl
-                border border-red-200
-                bg-red-50
-                px-4 py-3
-                text-sm
-                text-red-700
-
-                dark:border-red-500/20
-                dark:bg-red-500/10
-                dark:text-red-300
-
-                fancy:border-red-400/20
-                fancy:bg-red-400/[0.08]
-                fancy:text-red-300
-              "
-            >
-              {errorMessage}
-            </div>
-          )}
-
+          
           <div className="max-h-[520px] overflow-y-auto pr-2">
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
               {images.map((image) => (

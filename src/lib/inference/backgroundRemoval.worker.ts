@@ -2,6 +2,7 @@ import {
   removeBackground as removeBackgroundImgly,
 } from "@imgly/background-removal";
 
+
 interface ProcessImageMessage {
   type: "process";
   id: string;
